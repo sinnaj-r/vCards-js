@@ -2,19 +2,19 @@
     vCards-js, Eric J Nesser, November 2014
 ********************************************************************************/
 /*jslint node: true */
-'use strict';
+"use strict"
 
 /**
  * Represents a contact that can be imported into Outlook, iOS, Mac OS, Android devices, and more
  */
-var vCard = (function () {
+var vCard = function() {
     /**
      * Get photo object for storing photos in vCards
      */
     function getPhoto() {
         return {
-            url: '',
-            mediaType: '',
+            url: "",
+            mediaType: "",
             base64: false,
 
             /**
@@ -23,34 +23,34 @@ var vCard = (function () {
              * @param  {string} mediaType Media type of photo (JPEG, PNG, GIF)
              */
             attachFromUrl: function(url, mediaType) {
-                this.url = url;
-                this.mediaType = mediaType;
-                this.base64 = false;
+                this.url = url
+                this.mediaType = mediaType
+                this.base64 = false
             },
 
             /**
              * Embed a photo from a file using base-64 encoding (not implemented yet)
              * @param  {string} filename
              */
-            embedFromFile: function(fileLocation) {
-              var fs   = require('fs');
-              var path = require('path');
-              this.mediaType = path.extname(fileLocation).toUpperCase().replace(/\./g, "");
-              var imgData = fs.readFileSync(fileLocation);
-              this.url = imgData.toString('base64');
-              this.base64 = true;
-            },
+            // embedFromFile: function(fileLocation) {
+            //   var fs   = require('fs');
+            //   var path = require('path');
+            //   this.mediaType = path.extname(fileLocation).toUpperCase().replace(/\./g, "");
+            //   var imgData = fs.readFileSync(fileLocation);
+            //   this.url = imgData.toString('base64');
+            //   this.base64 = true;
+            // },
 
             /**
              * Embed a photo from a base-64 string
              * @param  {string} base64String
              */
             embedFromString: function(base64String, mediaType) {
-              this.mediaType = mediaType;
-              this.url = base64String;
-              this.base64 = true;
-            }
-        };
+                this.mediaType = mediaType
+                this.url = base64String
+                this.base64 = true
+            },
+        }
     }
 
     /**
@@ -62,38 +62,38 @@ var vCard = (function () {
              * Represents the actual text that should be put on the mailing label when delivering a physical package
              * @type {String}
              */
-            label: '',
+            label: "",
 
             /**
              * Street address
              * @type {String}
              */
-            street: '',
+            street: "",
 
             /**
              * City
              * @type {String}
              */
-            city: '',
+            city: "",
 
             /**
              * State or province
              * @type {String}
              */
-            stateProvince: '',
+            stateProvince: "",
 
             /**
              * Postal code
              * @type {String}
              */
-            postalCode: '',
+            postalCode: "",
 
             /**
              * Country or region
              * @type {String}
              */
-            countryRegion: ''
-        };
+            countryRegion: "",
+        }
     }
 
     /**
@@ -102,71 +102,70 @@ var vCard = (function () {
      */
     function getSocialUrls() {
         return {
-            'facebook': '',
-            'linkedIn': '',
-            'twitter': '',
-            'flickr': ''
-        };
+            facebook: "",
+            linkedIn: "",
+            twitter: "",
+            flickr: "",
+        }
     }
 
     /********************************************************************************
      * Public interface for vCard
      ********************************************************************************/
     return {
-
         /**
          * Specifies a value that represents a persistent, globally unique identifier associated with the vCard
          * @type {String}
          */
-        uid: '',
+        uid: "",
 
         /**
          * Date of birth
          * @type {Datetime}
          */
-        birthday: '',
+        birthday: "",
 
         /**
          * Cell phone number
          * @type {String}
          */
-        cellPhone: '',
+        cellPhone: "",
 
         /**
          * Other cell phone number or pager
          * @type {String}
          */
-        pagerPhone: '',
+        pagerPhone: "",
 
         /**
          * The address for private electronic mail communication
          * @type {String}
          */
-        email: '',
+        email: "",
 
         /**
          * The address for work-related electronic mail communication
          * @type {String}
          */
-        workEmail: '',
+        workEmail: "",
 
         /**
          * First name
          * @type {String}
          */
-        firstName: '',
+        firstName: "",
 
         /**
          * Formatted name string associated with the vCard object (will automatically populate if not set)
          * @type {String}
          */
-        formattedName: '',
+        formattedName: "",
 
         /**
          * Gender.
          * @type {String} Must be M or F for Male or Female
          */
-        gender: '',
+        gender: "",
 
         /**
          * Home mailing address
@@ -178,19 +177,19 @@ var vCard = (function () {
          * Home phone
          * @type {String}
          */
-        homePhone: '',
+        homePhone: "",
 
         /**
          * Home facsimile
          * @type {String}
          */
-        homeFax: '',
+        homeFax: "",
 
         /**
          * Last name
          * @type {String}
          */
-        lastName: '',
+        lastName: "",
 
         /**
          * Logo
@@ -202,37 +201,37 @@ var vCard = (function () {
          * Middle name
          * @type {String}
          */
-        middleName: '',
+        middleName: "",
 
         /**
          * Prefix for individual's name
          * @type {String}
          */
-        namePrefix: '',
+        namePrefix: "",
 
         /**
          * Suffix for individual's name
          * @type {String}
          */
-        nameSuffix: '',
+        nameSuffix: "",
 
         /**
          * Nickname of individual
          * @type {String}
          */
-        nickname: '',
+        nickname: "",
 
         /**
          * Specifies supplemental information or a comment that is associated with the vCard
          * @type {String}
          */
-        note: '',
+        note: "",
 
         /**
          * The name and optionally the unit(s) of the organization associated with the vCard object
          * @type {String}
          */
-        organization: '',
+        organization: "",
 
         /**
          * Individual's photo
@@ -244,7 +243,7 @@ var vCard = (function () {
          * The role, occupation, or business category of the vCard object within an organization
          * @type {String}
          */
-        role: '',
+        role: "",
 
         /**
          * Social URLs attached to the vCard object (ex: Facebook, Twitter, LinkedIn)
@@ -256,25 +255,25 @@ var vCard = (function () {
          * A URL that can be used to get the latest version of this vCard
          * @type {String}
          */
-        source: '',
+        source: "",
 
         /**
          * Specifies the job title, functional position or function of the individual within an organization
          * @type {String}
          */
-        title: '',
+        title: "",
 
         /**
          * URL pointing to a website that represents the person in some way
          * @type {String}
          */
-        url: '',
+        url: "",
 
         /**
          * URL pointing to a website that represents the person's work in some way
          * @type {String}
          */
-        workUrl: '',
+        workUrl: "",
 
         /**
          * Work mailing address
@@ -286,30 +285,30 @@ var vCard = (function () {
          * Work phone
          * @type {String}
          */
-        workPhone: '',
+        workPhone: "",
 
         /**
          * Work facsimile
          * @type {String}
          */
-        workFax: '',
+        workFax: "",
 
         /**
          * vCard version
          * @type {String}
          */
-        version: '3.0',
+        version: "3.0",
 
         /**
          * Get major version of the vCard format
          * @return {integer}
          */
         getMajorVersion: function() {
-            var majorVersionString = this.version ? this.version.split('.')[0] : '4';
+            var majorVersionString = this.version ? this.version.split(".")[0] : "4"
             if (!isNaN(majorVersionString)) {
-                return parseInt(majorVersionString);
+                return parseInt(majorVersionString)
             }
-            return 4;
+            return 4
         },
 
         /**
@@ -317,22 +316,22 @@ var vCard = (function () {
          * @return {String} Formatted vCard in VCF format
          */
         getFormattedString: function() {
-            var vCardFormatter = require('./lib/vCardFormatter');
-            return vCardFormatter.getFormattedString(this);
+            var vCardFormatter = require("./lib/vCardFormatter")
+            return vCardFormatter.getFormattedString(this)
         },
 
         /**
          * Save formatted vCard to file
          * @param  {String} filename
          */
-        saveToFile: function(filename) {
-            var vCardFormatter = require('./lib/vCardFormatter');
-            var contents = vCardFormatter.getFormattedString(this);
+        // saveToFile: function(filename) {
+        //     var vCardFormatter = require("./lib/vCardFormatter")
+        //     var contents = vCardFormatter.getFormattedString(this)
 
-            var fs = require('fs');
-            fs.writeFileSync(filename, contents, { encoding: 'utf8' });
-        }
-    };
-});
+        //     var fs = require("fs")
+        //     fs.writeFileSync(filename, contents, { encoding: "utf8" })
+        // },
+    }
+}
 
-module.exports = vCard;
+module.exports = vCard
